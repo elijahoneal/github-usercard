@@ -5,8 +5,17 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 axios.get('https://api.github.com/users/elijahoneal')
-.then(res =>console.log(res))
+.then(res => {
+   
+    let newCard = document.querySelector('.cards');
+    let userCard = gitCardMaker(res.data);
+    newCard.appendChild(userCard);
+    
+    return newCard;
+  
+  })
 .catch(err => err)
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -15,14 +24,14 @@ axios.get('https://api.github.com/users/elijahoneal')
 
     Skip to STEP 3.
 */
-const gitCardMaker = data => {
+const gitCardMaker = (data) => {
   // div class card
   let card = document.createElement('div');
   card.classList.add('card');
 
 // user img
   let img = document.createElement('img');
-  img.setAttribute('src' , data.avatar_url );
+  img.setAttribute('src', data.avatar_url );
 
   // div class card-info
   let cardInfo = document.createElement('div');
@@ -65,9 +74,10 @@ const gitCardMaker = data => {
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
+  
   return card
 } 
-console.log(gitCardMaker(axios))
+
 
 
 /*
@@ -87,6 +97,7 @@ console.log(gitCardMaker(axios))
 */
 
 const followersArray = [];
+followersArray.push('tetondan', 'dustinmyers', 'justsml', 'luishrd' , 'bigknell')
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -107,7 +118,9 @@ const followersArray = [];
       </div>
     </div>
 */
-
+followersArray.forEach( user => {
+  console.log(user);
+})
 /*
   List of LS Instructors Github username's:
     tetondan
