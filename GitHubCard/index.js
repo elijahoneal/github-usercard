@@ -8,6 +8,8 @@ import axios from 'axios'
 axios.get('https://api.github.com/users/elijahoneal')
 .then( res => {
   console.log(res.data)
+  let cardData = cardMaker(res.data)
+  document.querySelector('.cards').appendChild(cardData);
 })
 .catch(err => {
   console.log(err)
@@ -36,7 +38,15 @@ axios.get('https://api.github.com/users/elijahoneal')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',' dustinmyers', 'justsml', 'luishrd',' bigknell'];
+
+followersArray.map( friend => {
+  axios.get(`https://api.github.com/users/${friend}`)
+  .then( res => {
+    let friendData = cardMaker(res.data)
+  document.querySelector('.cards').appendChild(friendData);
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -73,19 +83,19 @@ const cardMaker = (obj) => {
         username.classList.add('username')
         username.textContent = obj.login
         const location = document.createElement('p')
-        location.textContent = obj.location
+        location.textContent = `location: ${obj.location}`
         const profile = document.createElement('p')
         const link = document.createElement('a')
         link.setAttribute('href', obj.url)
         link.textContent = obj.url
-        profile.textContent = ':'
+        profile.textContent = 'profile:'
         profile.appendChild(link)
         const followers = document.createElement('p')
-        followers.textContent = `: ${obj.followers}`
+        followers.textContent = `followers: ${obj.followers}`
         const following = document.createElement('p')
-        following.textContent = `: ${obj.following}`
+        following.textContent = `following: ${obj.following}`
         const bio = document.createElement('p')
-        bio.textContent = `: ${obj.bio}`
+        bio.textContent = `bio: ${obj.bio}`
     card.appendChild(cardInfo)
       cardInfo.appendChild(name)
       cardInfo.appendChild(username)
