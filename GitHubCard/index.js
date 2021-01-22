@@ -1,9 +1,17 @@
+
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/elijahoneal')
+.then( res => {
+  console.log(res.data)
+})
+.catch(err => {
+  console.log(err)
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +57,45 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cardMaker = (obj) => {
+  const card = document.createElement('div')
+  card.classList.add('card')
+    const img = document.createElement('img')
+    img.src = obj.avatar_url
+    card.appendChild(img)
+      const cardInfo = document.createElement('div')
+      cardInfo.classList.add('card-info')
+        const name = document.createElement('h3')
+        name.classList.add('name')
+        name.textContent = obj.name
+        const username = document.createElement('p')
+        username.classList.add('username')
+        username.textContent = obj.login
+        const location = document.createElement('p')
+        location.textContent = obj.location
+        const profile = document.createElement('p')
+        const link = document.createElement('a')
+        link.setAttribute('href', obj.url)
+        link.textContent = obj.url
+        profile.textContent = ':'
+        profile.appendChild(link)
+        const followers = document.createElement('p')
+        followers.textContent = `: ${obj.followers}`
+        const following = document.createElement('p')
+        following.textContent = `: ${obj.following}`
+        const bio = document.createElement('p')
+        bio.textContent = `: ${obj.bio}`
+    card.appendChild(cardInfo)
+      cardInfo.appendChild(name)
+      cardInfo.appendChild(username)
+      cardInfo.appendChild(location)
+      cardInfo.appendChild(profile)
+      cardInfo.appendChild(followers)
+      cardInfo.appendChild(following)
+      cardInfo.appendChild(bio)
+   return card
+}
 
 /*
   List of LS Instructors Github username's:
